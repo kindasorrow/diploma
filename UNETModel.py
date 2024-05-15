@@ -23,8 +23,8 @@ class UNet:
     sample_size = (256, 256)
     output_size = (1280, 720)
     weights_date = "2024-05-15"
-    images = sorted(glob.glob("C:/Work/navigation/Размеченное/img/*.jpg"))
-    masks = sorted(glob.glob("C:/Work/navigation/Размеченное/no_ceil_masks/*.png"))
+    images = sorted(glob.glob("C:/Work/diploma/Размеченное/img/*.jpg"))
+    masks = sorted(glob.glob("C:/Work/diploma/Размеченное/no_ceil_masks/*.png"))
 
     train_dataset = None
     test_dataset = None
@@ -216,14 +216,14 @@ class UNet:
         """
         history_dice = self.model.fit(self.train_dataset, validation_data=self.test_dataset, epochs=epochs,
                                       initial_epoch=initial_epoch)
-        self.model.save_weights('C:\\Work\\navigation\\wights\\' + str(date.today()) + '.weights.h5')
+        self.model.save_weights('C:\\Work\\diploma\\weights\\' + str(date.today()) + '.weights.h5')
         return history_dice.history
 
     def load_weights(self):
         """
         Loads the weights for the model based on the weights date.
         """
-        self.model.load_weights('C:\\Work\\navigation\\wights\\' + self.weights_date + '.weights.h5')
+        self.model.load_weights('C:\\Work\\diploma\\weights\\' + self.weights_date + '.weights.h5')
 
     def predict(self, image_path):
         """
