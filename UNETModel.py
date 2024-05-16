@@ -10,11 +10,9 @@ from math import *
 from sklearn.linear_model import LinearRegression
 from sklearn.cluster import KMeans
 from skimage.draw import polygon, polygon_perimeter
-from skimage import measure
 from skimage.io import imread, imsave
 from skimage.transform import resize
-from skimage.morphology import dilation, disk
-from skimage.draw import polygon_perimeter
+
 from datetime import date
 
 
@@ -225,17 +223,8 @@ class UNet:
         """
         self.model.load_weights('C:\\Work\\diploma\\weights\\' + self.weights_date + '.weights.h5')
 
-    def predict(self, image_path):
-        """
-        Predicts the output based on the input image path.
+    def predict(self, frame):
 
-        Parameters:
-            image_path (str): The file path to the input image.
-
-        Returns:
-            numpy array: The predicted output.
-        """
-        frame = cv2.imread(image_path)
         sample = resize(frame, self.sample_size)
         predict = self.model.predict(sample.reshape((1,) + self.sample_size + (3,)))
         predict = predict.reshape(self.sample_size + (self.classes,))
