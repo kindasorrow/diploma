@@ -1,4 +1,5 @@
 from UNETModel import UNet
+from functions import *
 import tensorflow as tf
 import cv2
 import warnings
@@ -52,9 +53,7 @@ while True:
     cv2.imshow("Capturing", frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-print(len(cv2.imread('C://Work//diploma//frames//$image051.jpg')))
-cv2.imshow("Capturing", cv2.imread('/frames/$image051.jpg'))
 cap.release()
 cv2.destroyAllWindows()
 # parse sensors json
-# https://192.168.0.6:8080/sensors.json?from=1715756092410&sense=accel,mag,gyro,light,proximity,motion,gravity,motion_event,lin_accel,motion_active,rot_vector
+# https://192.168.0.6:8080/sensors.json

@@ -31,6 +31,7 @@ class UNet:
     def __init__(self):
         pass
 
+    def __load_images(self, image, mask):
         """
         Loads and processes images and masks for the UNet model.
 
@@ -41,8 +42,6 @@ class UNet:
         Returns:
             tuple: A tuple containing the processed image and masks.
         """
-
-    def __load_images(self, image, mask):
         image = tf.io.read_file(image)
         image = tf.io.decode_jpeg(image)
         image = tf.image.resize(image, self.output_size)
@@ -224,7 +223,15 @@ class UNet:
         self.model.load_weights('C:\\Work\\diploma\\weights\\' + self.weights_date + '.weights.h5')
 
     def predict(self, frame):
+        """
+        Predicts the output of the model for a given frame.
 
+        Parameters:
+            frame (numpy.ndarray): The input frame to be predicted.
+
+        Returns:
+            numpy.ndarray: The predicted output of the model, reshaped to match the sample size and classes.
+        """
         sample = resize(frame, self.sample_size)
         predict = self.model.predict(sample.reshape((1,) + self.sample_size + (3,)))
         predict = predict.reshape(self.sample_size + (self.classes,))
